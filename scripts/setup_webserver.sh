@@ -61,7 +61,10 @@ check_fileServerType_param "$fileServerType"
   apt_update_noninteractive
 
   # install pre-requisites including VARNISH and PHP-FPM
-
+  add-apt-repository universe --yes   >> /tmp/apt.log 2>&1
+  add-apt-repository multiverse --yes >> /tmp/apt.log 2>&1
+  add-apt-repository ppa:ondrej/php --yes >> /tmp/apt.log 2>&1
+  apt_update_noninteractive >> /tmp/apt.log 2>&1
   apt_install_noninteractive \
     azure-cli \
     ca-certificates \
