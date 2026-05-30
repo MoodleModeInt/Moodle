@@ -88,7 +88,6 @@ check_fileServerType_param "$fileServerType"
     graphviz \
     aspell \
     php-soap \
-    php-json \
     php-redis \
     php-bcmath \
     php-ldap \
