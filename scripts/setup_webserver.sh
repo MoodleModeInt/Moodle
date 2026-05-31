@@ -58,12 +58,10 @@ check_fileServerType_param "$fileServerType"
   curl -sLS https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/keyrings/microsoft.gpg && chmod go+r /etc/apt/keyrings/microsoft.gpg
   echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" > /etc/apt/sources.list.d/azure-cli.list
 
-  apt_update_noninteractive
-
+  
   # install pre-requisites including VARNISH and PHP-FPM
-  add-apt-repository universe --yes   >> /tmp/apt.log 2>&1
-  add-apt-repository multiverse --yes >> /tmp/apt.log 2>&1
-  add-apt-repository ppa:ondrej/php --yes >> /tmp/apt.log 2>&1
+  add-apt-repository universe --yes --no-update  >> /tmp/apt.log 2>&1
+  add-apt-repository multiverse --yes --no-update >> /tmp/apt.log 2>&1
   apt_update_noninteractive >> /tmp/apt.log 2>&1
   apt_install_noninteractive \
     azure-cli \
@@ -81,26 +79,27 @@ check_fileServerType_param "$fileServerType"
     tuned \
     varnish \
     php \
-    php-cli \
-    php-curl \
-    php-zip \
+    php8.3-cli \
+    php8.3-common \
+    php8.3-curl \
+    php8.3-zip \
+    php8.3-mbstring \
+    php8.3-soap \
+    php8.3-redis \
+    php8.3-bcmath \
+    php8.3-ldap \
+    php8.3-gd \
+    php8.3-pgsql \
+    php8.3-mysql \
+    php8.3-intl \
+    php8.3-xml \
+    php8.3-bz2 \
+    php8.3-opcache \
+    php8.3-apcu \
+    php8.3-dev \
     php-pear \
-    php-mbstring \
-    mcrypt \
-    php-dev \
     graphviz \
-    aspell \
-    php-soap \
-    php-redis \
-    php-bcmath \
-    php-ldap \
-    php-gd \
-    php-pgsql \
-    php-mysql \
-    php-xmlrpc \
-    php-intl \
-    php-xml \
-    php-bz2
+    aspell
 
   # install azcopy
   wget -q -O azcopy_v10.tar.gz https://aka.ms/downloadazcopy-v10-linux && tar -xf azcopy_v10.tar.gz --strip-components=1 && mv ./azcopy /usr/bin/
@@ -152,12 +151,14 @@ EOF
    
   if [ "$webServerType" = "apache" ]; then
     # install apache pacakges
-    apt_install_noninteractive apache2 libapache2-mod-php
+    apt_install_noninteractive apache2 libapache2-mod-php8.3
   else
     # for nginx-only option
-    apt_install_noninteractive php-fpm
+    apt_install_noninteractive php8.3-fpm
   fi
-
+  update-alternatives --set php /usr/bin/php8.3
+  apt-mark hold $(dpkg-query -W -f='${Package}\n' 'php8.3*' 2>/dev/null) || true
+  
   # Moodle requirements
   if [ "$dbServerType" = "mssql" ]; then
     install_php_mssql_driver
