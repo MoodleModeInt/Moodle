@@ -7,7 +7,7 @@
             "metadata": {
                 "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
             },
-            "defaultValue": "https://raw.githubusercontent.com/Azure/Moodle/master/"
+            "defaultValue": "https://raw.githubusercontent.com/Azure/MoodleModeInt/master/"
         },
         "_artifactsLocationSasToken": {
             "type": "securestring",
@@ -194,9 +194,11 @@
         },
         "phpVersion": {
             "allowedValues": [
-                "8.1"
+                "8.1",
+                "8.2",
+                "8.3"
             ],
-            "defaultValue": "8.1",
+            "defaultValue": "8.3",
             "metadata": {
                 "description": "php version"
             },
@@ -795,7 +797,7 @@
         "ubuntuVersion": {
             "type": "string",
             "allowedValues": [
-                "22_04-lts-gen2"
+                "22_04-lts-gen2",
             ],
             "defaultValue": "22_04-lts-gen2"
         },
@@ -1368,10 +1370,10 @@
             "nfsHaNode1IP": "[concat(variables('subnetSanPrefix'), '.120')]",
             "osDiskStorageType": "[parameters('osDiskStorageType')]",
             "osType": {
-                "offer": "0001-com-ubuntu-server-jammy",
+                "offer": "ubuntu-24_04-lts",
                 "publisher": "Canonical",
                 "sku": "[parameters('ubuntuVersion')]",
-                "version": "latest"
+                "version": "24.04.202605270"
             },
             "phpVersion": "[parameters('phpVersion')]",
             "policyName": "[concat('policy-',variables('resourceprefix'))]",
