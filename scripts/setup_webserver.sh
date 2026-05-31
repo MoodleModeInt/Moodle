@@ -78,7 +78,6 @@ check_fileServerType_param "$fileServerType"
     unattended-upgrades \
     tuned \
     varnish \
-    php \
     php8.3-cli \
     php8.3-common \
     php8.3-curl \
