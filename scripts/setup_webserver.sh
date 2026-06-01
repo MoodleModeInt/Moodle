@@ -152,13 +152,13 @@ EOF
    
   if [ "$webServerType" = "apache" ]; then
     # install apache pacakges
-    apt_install_noninteractive apache2 libapache2-mod-php8.3
+    apt_install_noninteractive apache2 libapache2-mod-php8.1
   else
     # for nginx-only option
-    apt_install_noninteractive php8.3-fpm
+    apt_install_noninteractive php8.1-fpm
   fi
-  update-alternatives --set php /usr/bin/php8.3
-  apt-mark hold $(dpkg-query -W -f='${Package}\n' 'php8.3*' 2>/dev/null) || true
+  update-alternatives --set php /usr/bin/php8.1
+  apt-mark hold $(dpkg-query -W -f='${Package}\n' 'php8.1*' 2>/dev/null) || true
   
   # Moodle requirements
   if [ "$dbServerType" = "mssql" ]; then
