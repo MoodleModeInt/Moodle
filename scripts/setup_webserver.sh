@@ -61,10 +61,8 @@ check_fileServerType_param "$fileServerType"
     apt_update_noninteractive
 
   # install pre-requisites including VARNISH and PHP-FPM
-  
+    apt_install_noninteractive software-properties-common unzip >> /tmp/apt.log
     add-apt-repository universe --yes   >> /tmp/apt.log 2>&1
-    add-apt-repository multiverse --yes >> /tmp/apt.log 2>&1
-    add-apt-repository ppa:ondrej/php --yes >> /tmp/apt.log 2>&1
     apt_update_noninteractive >> /tmp/apt.log 2>&1
     apt_install_noninteractive \
     azure-cli \
@@ -86,7 +84,7 @@ check_fileServerType_param "$fileServerType"
     php8.3-curl \
     php8.3-zip \
     php8.3-mbstring \
-    mcrypt \
+    mcrypt  >> /tmp/apt.log \
     php8.3-dev \
     graphviz \
     aspell \
