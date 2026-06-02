@@ -84,7 +84,7 @@ check_fileServerType_param "$fileServerType"
     php8.3-curl \
     php8.3-zip \
     php8.3-mbstring \
-    mcrypt  >> /tmp/apt.log \
+    mcrypt \
     php8.3-dev \
     graphviz \
     aspell \
