@@ -1373,7 +1373,7 @@
                 "offer": "ubuntu-24_04-lts",
                 "publisher": "Canonical",
                 "sku": "[parameters('ubuntuVersion')]",
-                "version": "24.04.202604160"
+                "version": "latest"
             },
             "phpVersion": "[parameters('phpVersion')]",
             "policyName": "[concat('policy-',variables('resourceprefix'))]",
