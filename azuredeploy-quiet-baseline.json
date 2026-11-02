@@ -21,6 +21,18 @@
                 "description": "ssh public key"
             },
             "type": "string"
+        },
+        "searchType": {
+            "defaultValue": "none",
+            "allowedValues": [
+                "none",
+                "azure",
+                "elastic"
+            ],
+            "metadata": {
+                "description": "Moodle global search backend. Keep 'none' for the quiet baseline; redeploy with 'elastic' (3 VMs) or 'azure' when search is needed."
+            },
+            "type": "string"
         }
     },
     "resources": [
@@ -34,6 +46,7 @@
                     "_artifactsLocation":           { "value": "[parameters('_artifactsLocation')]" },
                     "_artifactsLocationSasToken":   { "value": "[parameters('_artifactsLocationSasToken')]" },
                     "sshPublicKey":                 { "value": "[parameters('sshPublicKey')]" },
+                    "searchType":                   { "value": "[parameters('searchType')]" },
                     "autoscaleVmSku":               { "value": "Standard_D4ds_v5" },
                     "autoscaleVmCountMin":          { "value": 1 },
                     "autoscaleVmCountMax":          { "value": 12 },
@@ -66,7 +79,7 @@
     "variables": {
         "documentation01": "Quiet-baseline wrapper for the migration test: small always-on footprint sized for long idle periods, with online scale-up paths for mandatory-course events.",
         "documentation02": "Web tier autoscales 1-12 x Standard_D4ds_v5; MySQL Flexible D2ds_v4 128GiB/1000 IOPS with storage autogrow; Azure Files Premium 256GiB share (grow quota online for events); Azure Managed Redis Balanced_B3 non-HA.",
-        "documentation03": "searchType is intentionally not set (defaults to none) - no search VMs are deployed.",
+        "documentation03": "searchType defaults to none (no search VMs); pass searchType=elastic or azure at deploy time to add global search when needed.",
         "documentation04": "Only required parameter is sshPublicKey."
     }
 }
