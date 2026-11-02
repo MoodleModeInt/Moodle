@@ -820,7 +820,7 @@
                     }
                 },
                 "templateLink": {
-                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl,'network.json',parameters('_artifactsLocationSasToken'))]"
+                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl,'network.json',variables('artifactsSasToken'))]"
                 }
             }
         },
@@ -836,7 +836,7 @@
                     }
                 },
                 "templateLink": {
-                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl,'storageAccount.json',parameters('_artifactsLocationSasToken'))]"
+                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl,'storageAccount.json',variables('artifactsSasToken'))]"
                 }
             }
         },
@@ -870,7 +870,7 @@
                     }
                 },
                 "templateLink": {
-                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl, 'db-', parameters('dbServerType'), '.json', parameters('_artifactsLocationSasToken'))]"
+                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl, 'db-', parameters('dbServerType'), '.json', variables('artifactsSasToken'))]"
                 }
             }
         },
@@ -887,7 +887,7 @@
                     }
                 },
                 "templateLink": {
-                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl,'recoveryservices.json',parameters('_artifactsLocationSasToken'))]"
+                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl,'recoveryservices.json',variables('artifactsSasToken'))]"
                 }
             }
         },
@@ -910,7 +910,7 @@
                     }
                 },
                 "templateLink": {
-                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl, 'redis.json', parameters('_artifactsLocationSasToken'))]"
+                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl, 'redis.json', variables('artifactsSasToken'))]"
                 }
             }
         },
@@ -934,7 +934,7 @@
                     }
                 },
                 "templateLink": {
-                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl, 'search-', parameters('searchType'), '.json', parameters('_artifactsLocationSasToken'))]"
+                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl, 'search-', parameters('searchType'), '.json', variables('artifactsSasToken'))]"
                 }
             }
         },
@@ -954,7 +954,7 @@
                         "value": "[parameters('_artifactsLocation')]"
                     },
                     "_artifactsLocationSasToken": {
-                        "value": "[parameters('_artifactsLocationSasToken')]"
+                        "value": "[variables('artifactsSasToken')]"
                     },
                     "location": {
                         "value": "[parameters('location')]"
@@ -1003,7 +1003,7 @@
                     }
                 },
                 "templateLink": {
-                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl, 'nfs-ha.json', parameters('_artifactsLocationSasToken'))]"
+                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl, 'nfs-ha.json', variables('artifactsSasToken'))]"
                 }
             }
         },
@@ -1041,7 +1041,7 @@
                     }
                 },
                 "templateLink": {
-                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl,'vmsetupparams.json',parameters('_artifactsLocationSasToken'))]"
+                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl,'vmsetupparams.json',variables('artifactsSasToken'))]"
                 }
             }
         },
@@ -1076,7 +1076,7 @@
                     }
                 },
                 "templateLink": {
-                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl,'controller.json',parameters('_artifactsLocationSasToken'))]"
+                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl,'controller.json',variables('artifactsSasToken'))]"
                 }
             }
         },
@@ -1105,7 +1105,7 @@
                     }
                 },
                 "templateLink": {
-                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl,'webvmss.json',parameters('_artifactsLocationSasToken'))]"
+                    "uri": "[concat(variables('moodleCommon').baseTemplateUrl,'webvmss.json',variables('artifactsSasToken'))]"
                 }
             }
         }
@@ -1171,10 +1171,11 @@
         "documentation09": "    webvmss             - creates a vm scale set",
         "documentation10": "    controller          - creates a controller VM and deploys code",
         "documentation11": "GlusterFS Sizing guidance",
+        "artifactsSasToken": "[if(startsWith(parameters('_artifactsLocationSasToken'), '?'), parameters('_artifactsLocationSasToken'), '')]",
         "moodleCommon": {
             "baseTemplateUrl": "[concat(parameters('_artifactsLocation'), 'nested/')]",
             "scriptLocation": "[concat(parameters('_artifactsLocation'), 'scripts/')]",
-            "artifactsSasToken": "[parameters('_artifactsLocationSasToken')]",
+            "artifactsSasToken": "[variables('artifactsSasToken')]",
             "appGwBePoolName": "[concat('appgw-bepool-', variables('resourceprefix'))]",
             "appGwName": "[concat('appgw-', variables('resourceprefix'))]",
             "appGwPipName": "[concat('appgw-pubip-',variables('resourceprefix'))]",
@@ -1194,7 +1195,7 @@
             "azureSearchPartitionCount": "[parameters('azureSearchPartitionCount')]",
             "azureSearchReplicaCount": "[parameters('azureSearchReplicaCount')]",
             "azureSearchSku": "[parameters('azureSearchSku')]",
-            "commonFunctionsScriptUri": "[concat(parameters('_artifactsLocation'),'scripts/helper_functions.sh',parameters('_artifactsLocationSasToken'))]",
+            "commonFunctionsScriptUri": "[concat(parameters('_artifactsLocation'),'scripts/helper_functions.sh',variables('artifactsSasToken'))]",
             "controllerVmSku": "[parameters('controllerVmSku')]",
             "customVnetId": "[parameters('customVnetId')]",
             "ctlrNicName": "[concat('controller-vm-nic-',variables('resourceprefix'))]",

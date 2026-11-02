@@ -54,7 +54,7 @@
                     "storageAccountType":           { "value": "Standard_LRS" }
                 },
                 "templateLink": {
-                    "uri": "[concat(parameters('_artifactsLocation'), 'azuredeploy.json', parameters('_artifactsLocationSasToken'))]"
+                    "uri": "[concat(parameters('_artifactsLocation'), 'azuredeploy.json', if(startsWith(parameters('_artifactsLocationSasToken'), '?'), parameters('_artifactsLocationSasToken'), ''))]"
                 }
             }
         }
